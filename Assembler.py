@@ -2,7 +2,6 @@ import os
 import sys
 
 
-
 # binary is a string with 0 and 1
 # Corresponding number will be returned
 # else return -1, if input is invalid
@@ -67,6 +66,7 @@ def Raise_error(s):
     print(s)
     f = open("output.txt", "w")
     f.write(s + "\n")
+    f.close()
     sys.exit()
 
 
@@ -92,6 +92,8 @@ def separate_each_term_in_all_lines(program):
     program_ls = []
     for line in program:
         line = line.strip()
+        while "\t" in line:
+            line = line.replace("\t", "     ")
         while "  " in line:
             line = line.replace("  ", " ")
         if (line.count(" ") == len(line)):
@@ -305,7 +307,7 @@ f.close()
 
 # Number of lines > 128
 num_of_lines = check_number_of_lines(program) 
-print("Number of lines is ", num_of_lines) 
+# print("Number of lines is ", num_of_lines) 
   
 # Stores the program as list of list with all terms separated    
 program_ls = separate_each_term_in_all_lines(program)
@@ -313,19 +315,19 @@ program_ls = separate_each_term_in_all_lines(program)
 # Reads variables and stores their mem_address
 variables = {}      
 num_of_vars = check_and_set_variables(program_ls)
-print("Number of variables is ", num_of_vars)
+# print("Number of variables is ", num_of_vars)
    
 # Last line is hlt
 check_hlt(program)
-print("Last line is hlt")
+# print("Last line is hlt")
 
 # Reads labes and stores their mem_address
 labels = {}
 only_labels = []
 find_labels(program_ls)
 labels_indexes = list(labels.values())
-print("Labels are ", len(labels))
-print(labels)
+# print("Labels are ", len(labels))
+# print(labels)
      
 # Actual reading begins here        
 i = num_of_vars
@@ -355,6 +357,7 @@ for i in range (num_of_vars, num_of_lines - 1):
             instruction = "mov_r"
             
     if instruction not in commands:
+        print(program_ls[i])
         Raise_error(f"Line {i} : Invalid operation")
     
     command = instruction 
