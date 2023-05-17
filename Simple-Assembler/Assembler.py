@@ -64,9 +64,9 @@ def binary_of_length(b, length):
 
 def Raise_error(s):
     print(s)
-#     f = open("output.txt", "w")
-#     f.write(s + "\n")
-#     f.close()
+    f = open("output.txt", "w")
+    f.write(s + "\n")
+    f.close()
     sys.exit()
 
 
@@ -132,6 +132,7 @@ def check_and_set_variables(program_ls):
 
 def check_hlt(program):
     if ("hlt" not in program[-1]):
+        # print("here", program[-1])
         Raise_error("Missing hlt instruction at the end")
 
 def find_labels(program_ls):
@@ -146,7 +147,8 @@ def find_labels(program_ls):
             Raise_error(f"Line {i} : Label Syntax Error")
         elif ls[0][-1] == ":":
             labels[ls[0][:-1]] = i - num_of_vars
-            only_labels.append(i)
+            if(ls[-1][-1] == ":"):
+                only_labels.append(i)
             i += 1
         else:
             i += 1
@@ -199,7 +201,10 @@ def Validate_type_C(ls, i, op):
     s = opp_code[op][0] 
     s += "0"*5
     s += Validate_reg(ls[1])
-    s += Validate_reg(ls[2])
+    if (op == "mov_r" and ls[2] == "FLAGS"):
+        s += "111"
+    else:
+        s += Validate_reg(ls[2])
     return s
 
 def Validate_type_D(ls, i, op):
@@ -263,7 +268,7 @@ Max_num_of_lines = 128
 opp_code = {"add"   : ["00000", "A"],
             "sub"   : ["00001", "A"],
             "mov_i" : ["00010", "B"],
-            "mov_r" : ["00001", "C"],
+            "mov_r" : ["00011", "C"],
             "ld"    : ["00100", "D"],
             "st"    : ["00101", "D"],
             "mul"   : ["00110", "A"],
@@ -304,8 +309,8 @@ reg_address = {"R0"   : "000",
 # f = open(file, "r")
 # program= f.readlines()
 # f.close()
-program = sys.stdin.readlines()
 
+program = sys.stdin.readlines()
 
 # Number of lines > 128
 num_of_lines = check_number_of_lines(program) 
@@ -376,5 +381,6 @@ output_string += "1101000000000000"
 
 # f = open("output.txt", "w")
 # f.write(output_string)
-# f.close()       
+# f.close() 
+# print(output_string)      
 sys.stdout.write(output_string)
