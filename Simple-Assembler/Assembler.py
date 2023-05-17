@@ -64,9 +64,9 @@ def binary_of_length(b, length):
 
 def Raise_error(s):
     print(s)
-    f = open("output.txt", "w")
-    f.write(s + "\n")
-    f.close()
+#     f = open("output.txt", "w")
+#     f.write(s + "\n")
+#     f.close()
     sys.exit()
 
 
@@ -300,10 +300,12 @@ reg_address = {"R0"   : "000",
 
 
 # Reads file
-file = input_valid_file_name_from_user()
-f = open(file, "r")
-program= f.readlines()
-f.close()
+# file = input_valid_file_name_from_user()
+# f = open(file, "r")
+# program= f.readlines()
+# f.close()
+program = sys.stdin.readlines()
+
 
 # Number of lines > 128
 num_of_lines = check_number_of_lines(program) 
@@ -372,6 +374,7 @@ for i in range (num_of_vars, num_of_lines - 1):
 
 output_string += "1101000000000000" 
 
-f = open("output.txt", "w")
-f.write(output_string)
-f.close()       
+# f = open("output.txt", "w")
+# f.write(output_string)
+# f.close()       
+sys.stdout.write(output_string)
