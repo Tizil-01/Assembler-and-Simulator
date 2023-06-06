@@ -2,13 +2,14 @@
 
 Starter repository for Computer Organization, Winter 2023 semester, assignment at IIITD
 
-SimpleRISC Assembler 
+SimpleRISC Assembler and Simulator
 
 <h2>Adding code</h2>
 
 * Add the assembler code in the Simple-Assembler directory. Add the commands to execute the assembler in Simple-Assembler/run.
-* Make sure that both the assembler read from stdin.
-* Make sure that both the assembler write to stdout.
+* Add the simulator code in the SimpleSimulator directory. Add the commands to execute the assembler in SimpleSimulator/run.
+* Make sure that both the assembler and the simulator read from stdin.
+* Make sure that both the assembler and the simulator write to stdout.
 
 <h2>How to evaluate</h2>
 
